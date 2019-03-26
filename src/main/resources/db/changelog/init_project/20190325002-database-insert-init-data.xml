@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="jdiaz" id="15533020438392-0">
+        <sql>
+            INSERT INTO `role`
+					VALUES (1, 'ADM', 'Administrador', 'Rol de Administrador'),
+					(2, 'DCT', 'Docente', 'Rol de Docente'),
+					(3, 'DNT', 'Donante', 'Rol de Donante');
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160539228-1">
+        <sql>
+           INSERT INTO `user` VALUES
+			(1, 'admin', 'admin_last_name', 'admin_first_name', 'admin@admin.com', '12345678', 'GUA','555383839', 'N', '604849302', '1');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

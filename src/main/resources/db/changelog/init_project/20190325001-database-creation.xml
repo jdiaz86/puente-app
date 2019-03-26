@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="jdiaz" id="1553302044247-0">
+        <sql>
+            DROP TABLE IF EXISTS user;
+            DROP TABLE IF EXISTS role;
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="1553316058350-1">
+        <sql>
+            CREATE TABLE `role` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `code` varchar(3) NOT NULL,
+			  `name` varchar(50) NOT NULL,
+			  `description` varchar(250) DEFAULT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="1553316058350-2">
+    	<sql>
+			CREATE TABLE `user` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `username` varchar(50) NOT NULL,
+			  `last_name` varchar(150) NOT NULL,
+			  `first_name` varchar(150) NOT NULL,
+			  `email` varchar(255) NOT NULL,
+			  `password` varchar(255) NOT NULL,
+			  `country` varchar(50) NOT NULL,
+			  `phone` varchar(255) DEFAULT NULL,
+			  `foreign` varchar(1) NOT NULL,
+			  `tax_correlative` varchar(100) DEFAULT NULL,
+			  `role_id` int(11) DEFAULT NULL,
+			  PRIMARY KEY (`id`),
+			  UNIQUE KEY `username_UNIQUE` (`username`),
+			  KEY `fk_user_role_idx` (`role_id`),
+			  CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

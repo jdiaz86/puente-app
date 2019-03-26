@@ -9,8 +9,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	private static final String[] PUBLIC_MATCHERS = {"/**/favicon.ico", "/webjars/**", 
 													"/images/**", "/js/**", 
-													"/css/**", "/login",
-													"/api/v1/roles"};
+													"/css/**", "/login"};
 
 
     @Override
