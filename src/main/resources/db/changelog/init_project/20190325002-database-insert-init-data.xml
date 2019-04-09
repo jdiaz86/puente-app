@@ -8,10 +8,34 @@
 					(3, 'DNT', 'Donante', 'Rol de Donante');
         </sql>
     </changeSet>
-    <changeSet author="jdiaz" id="15533160539228-1">
+    <changeSet author="jdiaz" id="15533020438392-1">
+        <sql>
+            INSERT INTO `status`
+					VALUES (1, 'ACT', 'Activo', 'Estado de usuario activo'),
+					(2, 'IAC', 'Inactivo', 'Estado de usuario inactivo, de forma temporal'),
+					(3, 'INV', 'Invitado', 'Estado de usuario invitado, tiempo durante el cual la invitacion a unirse al sistema este activa'),
+					(4, 'ELM', 'Eliminado', 'Estado de usuario eliminado, de forma definitiva');
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160539228-2">
         <sql>
            INSERT INTO `user` VALUES
-			(1, 'admin', 'admin_last_name', 'admin_first_name', 'admin@admin.com', '12345678', 'GUA','555383839', 'N', '604849302', '1');
+			(1, 'admin', 'admin_last_name', 'admin_first_name', 'admin@admin.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'GUA','555383839', 'N', '604849302', '3829448440201', 1),
+			(2, 'jdiaz', 'Diaz', 'Jorge', 'jdiaz@gmail.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'URU','555383839', 'S', '604849302', '2347823724', 1),
+			(3, 'edwinxol', 'Xol', 'Edwin', 'edwinxol@gmail.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'GUA','555386757', 'N', '6045439302', '382944786201', 1),
+			(4, 'cazurdia', 'Azurdia', 'Carlos', 'caazurdiam@gmail.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'GUA','555734839', 'N', '604654302', '3829232440201', 1);
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160539228-3">
+        <sql>
+           INSERT INTO `oauth_client_details` VALUES
+			('instituto_puente','my_rest_api','$2a$10$pbYN0CYAe5YAHDBnOXGf..GdiHyLOSoeUlUknygfb/MOJ3Xv7.ctC','read,write,trust','authorization_code,password,refresh_token,implicit','','ROLE_CLIENT,ROLE_TRUSTED_CLIENT',3600,27000,'{}','1');
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160539228-4">
+        <sql>
+           INSERT INTO `user_roles` VALUES (1,1),(1,2),(1,3),
+           								(2,3), (3,2), (4,1),(4,2),(4,3);
         </sql>
     </changeSet>
 </databaseChangeLog>

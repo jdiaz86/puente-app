@@ -4,6 +4,13 @@
         <sql>
             DROP TABLE IF EXISTS user;
             DROP TABLE IF EXISTS role;
+            DROP TABLE IF EXISTS user_roles;
+            DROP TABLE IF EXISTS oauth_access_token;
+            DROP TABLE IF EXISTS oauth_approvals;
+            DROP TABLE IF EXISTS oauth_client_details;
+            DROP TABLE IF EXISTS oauth_client_token;
+            DROP TABLE IF EXISTS oauth_code;
+            DROP TABLE IF EXISTS oauth_refresh_token;
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="1553316058350-1">
@@ -19,6 +26,18 @@
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="1553316058350-2">
+        <sql>
+            CREATE TABLE `status` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `code` varchar(3) NOT NULL,
+			  `name` varchar(50) NOT NULL,
+			  `description` varchar(250) DEFAULT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="1553316058350-3">
     	<sql>
 			CREATE TABLE `user` (
 			  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -31,12 +50,85 @@
 			  `phone` varchar(255) DEFAULT NULL,
 			  `foreign` varchar(1) NOT NULL,
 			  `tax_correlative` varchar(100) DEFAULT NULL,
-			  `role_id` int(11) DEFAULT NULL,
+			  `dni` varchar(100) DEFAULT NULL,
+			  `status_id` int(11) DEFAULT NULL,
 			  PRIMARY KEY (`id`),
 			  UNIQUE KEY `username_UNIQUE` (`username`),
-			  KEY `fk_user_role_idx` (`role_id`),
-			  CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
+			  KEY `fk_user_status_idx` (`status_id`),
+			  CONSTRAINT `fk_user_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
 			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="1553316058350-4">
+        <sql>
+            CREATE TABLE `user_roles` (
+	            `user_id` int(11) NOT NULL,
+	            `roles_id` int(11) NOT NULL,
+	            KEY `user_roles_user_idx` (`user_id`),
+	            KEY `user_roles_roles_idx` (`roles_id`),
+	            CONSTRAINT `FK55itppkw3i07do3h7qoclqd4k` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+	            CONSTRAINT `FKj9553ass9uctjrmh0gkqsmv0d` FOREIGN KEY (`roles_id`) REFERENCES `role` (`id`),
+	            CONSTRAINT `user_roles_roles_idx` FOREIGN KEY (`roles_id`) REFERENCES `role` (`id`),
+	            CONSTRAINT `user_roles_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="1553316058350-5">
+    	<sql>
+			CREATE TABLE `oauth_access_token` (
+	            `token_id` varchar(255) DEFAULT NULL,
+	            `token` mediumblob,
+	            `authentication_id` varchar(255) NOT NULL,
+	            `user_name` varchar(255) DEFAULT NULL,
+	            `client_id` varchar(255) DEFAULT NULL,
+	            `authentication` mediumblob,
+	            `refresh_token` varchar(255) DEFAULT NULL,
+	            PRIMARY KEY (`authentication_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `oauth_approvals` (
+	            `userId` varchar(255) DEFAULT NULL,
+	            `clientId` varchar(255) DEFAULT NULL,
+	            `scope` varchar(255) DEFAULT NULL,
+	            `status` varchar(10) DEFAULT NULL,
+	            `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	            `lastModifiedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `oauth_client_details` (
+	            `client_id` varchar(255) NOT NULL,
+	            `resource_ids` varchar(255) DEFAULT NULL,
+	            `client_secret` varchar(255) DEFAULT NULL,
+	            `scope` varchar(255) DEFAULT NULL,
+	            `authorized_grant_types` varchar(255) DEFAULT NULL,
+	            `web_server_redirect_uri` varchar(255) DEFAULT NULL,
+	            `authorities` varchar(255) DEFAULT NULL,
+	            `access_token_validity` int(11) DEFAULT NULL,
+	            `refresh_token_validity` int(11) DEFAULT NULL,
+	            `additional_information` varchar(4096) DEFAULT NULL,
+	            `autoapprove` varchar(255) DEFAULT NULL,
+	            PRIMARY KEY (`client_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `oauth_client_token` (
+	            `token_id` varchar(255) DEFAULT NULL,
+	            `token` mediumblob,
+	            `authentication_id` varchar(255) NOT NULL,
+	            `user_name` varchar(255) DEFAULT NULL,
+	            `client_id` varchar(255) DEFAULT NULL,
+	            PRIMARY KEY (`authentication_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `oauth_code` (
+	            `code` varchar(255) DEFAULT NULL,
+	            `authentication` mediumblob
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            
+            CREATE TABLE `oauth_refresh_token` (
+	            `token_id` varchar(255) DEFAULT NULL,
+	            `token` mediumblob,
+	            `authentication` mediumblob
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
 </databaseChangeLog>
