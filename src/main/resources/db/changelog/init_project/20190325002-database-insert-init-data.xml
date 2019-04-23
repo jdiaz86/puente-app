@@ -38,4 +38,53 @@
            								(2,3), (3,2), (4,1),(4,2),(4,3);
         </sql>
     </changeSet>
+    <changeSet author="jdiaz" id="15533160539975-5">
+        <sql>
+           INSERT INTO `course` VALUES (1,'MAT1','Matematicas','Curso de Matematicas grado 1',1),
+           								(2,'CNS1','Ciencias Naturales','Curso de Ciencias Naturales grado 1',1),
+           								(3,'LNG1','Lenguaje','Curso de Lenguaje',1),
+           								(4,'EMP','Emprendedores','Curso de Emprendedores',2);
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160539345-6">
+        <sql>
+           INSERT INTO `course_enrollment` VALUES (1,1,1,10,2019,'Asignacion 2019 profesor Admin, curso Matematicas grado 1'),
+           											(2,1,2,15,2019,'Asignacion 2019 profesor Admin, curso Ciencias Naturales grado 1'),
+           											(3,1,3,8,2019,'Asignacion 2019 profesor Admin, curso Lenguaje grado 1');
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160539938-7">
+        <sql>
+           INSERT INTO `course_planning` VALUES (1,1,3,'2019-01-17','8','Numeros y variables, numeros mixcos y numeros basicos','la suma de 3',''),
+           								(2,1,4,'2019-01-28','10','Numerologia maya','Simbolos mayas',''),
+           								(3,1,5,'2019-02-09','10','Numeros y sus funciones','Funciones',''),
+           								(4,3,3,'2019-01-17','10','Abecedario','Las letras del abecedario',''),
+           								(5,3,4,'2019-01-28','15','Abecedario (Continuacion)','Consonantes',''),
+           								(6,3,5,'2019-02-06','8','Constantes y Vocales','Las vocales','');
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160539468-8">
+        <sql>
+           INSERT INTO `income` VALUES (1,'2019-01-20 00:00:00',1000.00,'Un mil exactos','TRANSFERENCIA','Transferencia BI #3434234',2,'admin'),
+           								(2,'2019-02-20 00:00:00',1000.00,'Un mil exactos','TRANSFERENCIA','Transferencia BI # 324234',2,'admin'),
+           								(3,'2019-01-20 00:00:00',500.00,'Quinientos exactos','TARJETA_CREDITO','Tarjeta BI',3,'admin'),
+           								(4,'2019-02-20 00:00:00',500.00,'Quinientos exactos','TARJETA_DEBITO','Tarjeta BI',3,'admin');
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160539983-9">
+        <sql>
+           INSERT INTO `outcome_category` VALUES (1,'EHC','Equipo y herramientas para ciencias','','CAPITAL'),
+           										(2,'EHA','Equipo y herramientas para arte',NULL,'CAPITAL'),
+           										(3,'CPS','Coordinacion de proyecto (sueldos)',NULL,'OPERATIVO'),
+           										(4,'DCS','Docentes (sueldos)',NULL,'OPERATIVO');
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160539991-10">
+        <sql>
+           INSERT INTO `outcome` VALUES (1,'2019-01-15 00:00:00',5000.00,'Cinco mil exactos','pago de equipo para ciencias',1,1),
+           								(2,'2019-01-30 00:00:00',1000.00,'Un mil exactos','pago de equipo de artes',2,1),
+           								(3,'2019-02-10 00:00:00',2500.00,'Dos mil quinientos exactos','pago de sueldos',3,1),
+           								(4,'2019-01-10 00:00:00',2500.00,'Dos mil quinientos exactos','pago de sueldos',3,1);
+        </sql>
+    </changeSet>
 </databaseChangeLog>

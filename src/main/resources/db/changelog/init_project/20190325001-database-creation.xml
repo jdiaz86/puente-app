@@ -5,6 +5,12 @@
             DROP TABLE IF EXISTS user;
             DROP TABLE IF EXISTS role;
             DROP TABLE IF EXISTS user_roles;
+            DROP TABLE IF EXISTS course;
+            DROP TABLE IF EXISTS course_enrollment;
+            DROP TABLE IF EXISTS course_planning;
+            DROP TABLE IF EXISTS income;
+            DROP TABLE IF EXISTS outcome_category;
+            DROP TABLE IF EXISTS outcome;
             DROP TABLE IF EXISTS oauth_access_token;
             DROP TABLE IF EXISTS oauth_approvals;
             DROP TABLE IF EXISTS oauth_client_details;
@@ -55,7 +61,7 @@
 			  PRIMARY KEY (`id`),
 			  UNIQUE KEY `username_UNIQUE` (`username`),
 			  KEY `fk_user_status_idx` (`status_id`),
-			  CONSTRAINT `fk_user_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
+			  CONSTRAINT `fk_user_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
@@ -66,14 +72,105 @@
 	            `roles_id` int(11) NOT NULL,
 	            KEY `user_roles_user_idx` (`user_id`),
 	            KEY `user_roles_roles_idx` (`roles_id`),
-	            CONSTRAINT `FK55itppkw3i07do3h7qoclqd4k` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-	            CONSTRAINT `FKj9553ass9uctjrmh0gkqsmv0d` FOREIGN KEY (`roles_id`) REFERENCES `role` (`id`),
 	            CONSTRAINT `user_roles_roles_idx` FOREIGN KEY (`roles_id`) REFERENCES `role` (`id`),
 	            CONSTRAINT `user_roles_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
-    <changeSet author="jdiaz" id="1553316058350-5">
+    <changeSet author="jdiaz" id="1553316058452-5">
+        <sql>
+            CREATE TABLE `course` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `code` varchar(5) NOT NULL,
+			  `name` varchar(50) NOT NULL,
+			  `description` varchar(250) DEFAULT NULL,
+			  `grade` int(11) DEFAULT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160588392-6">
+        <sql>
+            CREATE TABLE `course_enrollment` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `user_id` int(11) NOT NULL,
+			  `course_id` int(11) NOT NULL,
+			  `students_amount` int(11) NOT NULL,
+			  `year` year(4) NOT NULL,
+			  `description` varchar(250) DEFAULT NULL,
+			  PRIMARY KEY (`id`),
+			  KEY `couse_enrollment_user_idx` (`user_id`),
+			  KEY `course_enrollment_course_idx` (`course_id`),
+			  CONSTRAINT `course_enrollment_course_idx` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
+			  CONSTRAINT `couse_enrollment_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160588323-7">
+        <sql>
+            CREATE TABLE `course_planning` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `course_enrollment_id` int(11) NOT NULL,
+			  `week` int(11) NOT NULL,
+			  `date` date NOT NULL,
+			  `assistance` varchar(50) NOT NULL,
+			  `content` varchar(250) DEFAULT NULL,
+			  `learning_activities` varchar(250) DEFAULT NULL,
+			  `evaluation_activities` varchar(250) DEFAULT NULL,
+			  PRIMARY KEY (`id`),
+			  KEY `couse_planning_course_enrollment_idx` (`course_enrollment_id`),
+			  CONSTRAINT `couse_enrollment_course_enrollment_idx` FOREIGN KEY (`course_enrollment_id`) REFERENCES `course_enrollment` (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160588875-8">
+        <sql>
+            CREATE TABLE `income` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `date` datetime NOT NULL,
+			  `amount` decimal(19,2) NOT NULL,
+			  `amount_text` varchar(150) NOT NULL,
+			  `pay_method` varchar(150) NOT NULL,
+			  `description` varchar(255) NOT NULL,
+			  `user_id` int(11) DEFAULT NULL,
+			  `username` varchar(255) NOT NULL,
+			  PRIMARY KEY (`id`),
+			  KEY `fk_user_income_idx` (`user_id`),
+			  CONSTRAINT `fk_user_income` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160588542-9">
+        <sql>
+            CREATE TABLE `outcome_category` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `code` varchar(3) NOT NULL,
+			  `name` varchar(50) NOT NULL,
+			  `description` varchar(250) DEFAULT NULL,
+			  `type` varchar(45) DEFAULT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160588982-10">
+        <sql>
+            CREATE TABLE `outcome` (
+			  `id` int(11) NOT NULL AUTO_INCREMENT,
+			  `date` datetime NOT NULL,
+			  `amount` decimal(19,2) NOT NULL,
+			  `amount_text` varchar(150) NOT NULL,
+			  `description` varchar(255) NOT NULL,
+			  `outcome_category_id` int(11) DEFAULT NULL,
+			  `user_id` int(11) DEFAULT NULL,
+			  PRIMARY KEY (`id`),
+			  KEY `fk_outcome_category_idx` (`outcome_category_id`),
+			  KEY `fk_user_outcome_idx` (`user_id`),
+			  CONSTRAINT `fk_outcome_category` FOREIGN KEY (`outcome_category_id`) REFERENCES `outcome_category` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
+			  CONSTRAINT `fk_user_outcome` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
+			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="1553316058350-55">
     	<sql>
 			CREATE TABLE `oauth_access_token` (
 	            `token_id` varchar(255) DEFAULT NULL,
