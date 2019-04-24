@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.puente.puenteapp.controller.util.PuenteException;
-import com.puente.puenteapp.model.entity.Role;
-import com.puente.puenteapp.model.repository.RoleRepository;
+import com.puente.puenteapp.model.entity.CoursePlanning;
+import com.puente.puenteapp.model.repository.CoursePlanningRepository;
 
 @RestController
-@RequestMapping("/api/roles")
-public class RoleController extends BaseController {
+@RequestMapping("/api/coursePlannings")
+public class CoursePlanningController extends BaseController {
 	
 	@Autowired
-    private RoleRepository repository;
+    private CoursePlanningRepository repository;
 	
 	@GetMapping("/")
-    public List<Role> getAll() {
+    public List<CoursePlanning> getAll() {
         return repository.findAll();
     }
 	
 	@GetMapping("/{id}")
-    public Role get(@PathVariable(value = "id") Integer id) throws PuenteException {
+    public CoursePlanning get(@PathVariable(value = "id") Integer id) throws PuenteException {
         return getById(repository, id);
     }
 

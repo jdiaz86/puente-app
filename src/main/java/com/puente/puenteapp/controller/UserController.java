@@ -20,14 +20,14 @@ import com.puente.puenteapp.model.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController {
+public class UserController extends BaseController {
 	
 	@Autowired
-    private UserRepository userRepository;
+    private UserRepository repository;
 	
 	@GetMapping("/")
     public List<User> getAll() {
-        return userRepository.findAll();
+        return repository.findAll();
     }
 	
 	@GetMapping("/decode/{decoded}")
@@ -37,15 +37,15 @@ public class UserController {
 	
 	@GetMapping("/{id}")
     public User get(@PathVariable(value = "id") Integer id) throws PuenteException {
-        return getById(id);
+        return getById(repository, id);
     }
 	
 	@PutMapping(value = "/validateUser/{id}")
     public ResponseEntity<String> updateAddress(@PathVariable("id") final Integer id) throws PuenteException {
-        User user = getById(id);
+        User user = getById(repository, id);
         user.setStatus(Status.ACTIVE);
         
-        userRepository.save(user);
+        repository.save(user);
         return ResponseEntity.ok(Status.ACTIVE.getName());
     }
 	
@@ -53,11 +53,8 @@ public class UserController {
     public User getUserObj(Principal principal) throws PuenteException {
         Integer userId = ((User) ((OAuth2Authentication) principal).getPrincipal()).getId();
 
-        return getById(userId);
+        return getById(repository, userId);
     }
-	
-	private User getById(Integer id) throws PuenteException {
-		return userRepository.findById(id).orElseThrow(() -> new PuenteException("Id not found: " + id));
-	}
+
 
 }
