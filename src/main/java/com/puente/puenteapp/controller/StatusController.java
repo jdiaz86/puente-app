@@ -14,19 +14,19 @@ import com.puente.puenteapp.model.repository.StatusRepository;
 
 @RestController
 @RequestMapping("/api/status")
-public class StatusController {
+public class StatusController extends BaseController {
 	
 	@Autowired
-    private StatusRepository statusRepository;
+    private StatusRepository repository;
 	
 	@GetMapping("/")
     public List<Status> getAll() {
-        return statusRepository.findAll();
+        return repository.findAll();
     }
 	
 	@GetMapping("/{id}")
     public Status get(@PathVariable(value = "id") Integer id) throws PuenteException {
-        return statusRepository.findById(id).orElseThrow(() -> new PuenteException("Id not found: " + id));
+        return getById(repository, id);
     }
 
 }

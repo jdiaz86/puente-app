@@ -14,39 +14,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.puente.puenteapp.controller.util.PuenteException;
-import com.puente.puenteapp.model.entity.Course;
-import com.puente.puenteapp.model.repository.CourseRepository;
+import com.puente.puenteapp.model.entity.OutcomeCategory;
+import com.puente.puenteapp.model.repository.OutcomeCategoryRepository;
+
 
 @RestController
-@RequestMapping("/api/courses")
-public class CourseController extends BaseController {
+@RequestMapping("/api/outcomeCategorys")
+public class OutcomeCategoryController extends BaseController {
 	
 	@Autowired
-    private CourseRepository repository;
+    private OutcomeCategoryRepository repository;
 	
 	@GetMapping("/")
-    public List<Course> getAll() {
+    public List<OutcomeCategory> getAll() {
         return repository.findAll();
     }
 	
 	@GetMapping("/{id}")
-    public Course get(@PathVariable(value = "id") Integer id) throws PuenteException {
+    public OutcomeCategory get(@PathVariable(value = "id") Integer id) throws PuenteException {
         return getById(repository, id);
     }
 	
 	@RequestMapping(method = POST, value = "/new")
-    public Course create(@RequestBody Course course) {
-        return repository.save(course);
+    public OutcomeCategory create(@RequestBody OutcomeCategory outcomeCategory) {
+        return repository.save(outcomeCategory);
     }
 
     @RequestMapping(method = PUT, value = "/{id}")
-    public ResponseEntity<Course> update(@PathVariable(value = "id") Integer id, @RequestBody Course dto) throws PuenteException {
-    	Course course = getById(repository, id);
-        if (course == null) {
+    public ResponseEntity<OutcomeCategory> update(@PathVariable(value = "id") Integer id, @RequestBody OutcomeCategory dto) throws PuenteException {
+    	OutcomeCategory outcomeCategory = getById(repository, id);
+        if (outcomeCategory == null) {
             return ResponseEntity.notFound().build();
         }
-        copy(dto, course);
-        return ResponseEntity.ok(repository.save(course));
+        copy(dto, outcomeCategory);
+        return ResponseEntity.ok(repository.save(outcomeCategory));
     }
 
 }
