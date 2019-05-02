@@ -13,12 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.CollectionUtils;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.puente.puenteapp.configuration.CustomAuthorityDeserializer;
 
 import lombok.Data;
 
@@ -47,7 +51,7 @@ public class User implements UserDetails, Serializable {
 	
 	private String phone;
 	
-	private String foreign;
+	private String state;
 	
 	private String taxCorrelative;
 	
@@ -60,6 +64,7 @@ public class User implements UserDetails, Serializable {
 	@ManyToOne
     private Status status;
 
+	@JsonDeserialize(using = CustomAuthorityDeserializer.class)
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		if (!CollectionUtils.isEmpty(getRoles())) {

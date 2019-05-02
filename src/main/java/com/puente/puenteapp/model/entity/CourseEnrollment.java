@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.puente.puenteapp.configuration.JsonDateDeserializer;
+import com.puente.puenteapp.configuration.JsonDateSerializer;
+
 import lombok.Data;
 
 @Entity
@@ -21,7 +26,9 @@ public class CourseEnrollment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
-	private Date year;
+	@JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
+	private Date date;
 	
 	private Integer studentsAmount;
 	

@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.puente.puenteapp.configuration.JsonDateDeserializer;
+import com.puente.puenteapp.configuration.JsonDateSerializer;
 
 import lombok.Data;
 
@@ -21,6 +25,8 @@ public class Outcome implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
+	@JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
 	private Date date;
 	
 	private Double amount;
@@ -29,8 +35,7 @@ public class Outcome implements Serializable {
 	
 	private String description;
 	
-	@ManyToOne
-    private User user;
+	private String username;
 	
 	@ManyToOne
     private OutcomeCategory outcomeCategory;

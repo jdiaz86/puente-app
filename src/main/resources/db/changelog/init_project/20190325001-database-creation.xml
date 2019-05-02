@@ -22,209 +22,207 @@
     <changeSet author="jdiaz" id="1553316058350-1">
         <sql>
             CREATE TABLE `role` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `code` varchar(3) NOT NULL,
-			  `name` varchar(50) NOT NULL,
-			  `description` varchar(250) DEFAULT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+		        `id` int(11) NOT NULL AUTO_INCREMENT,
+		        `code` varchar(3) DEFAULT NULL,
+		        `name` varchar(50) DEFAULT NULL,
+		        `description` varchar(250) DEFAULT NULL,
+		        PRIMARY KEY (`id`)
+		      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="1553316058350-2">
         <sql>
             CREATE TABLE `status` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `code` varchar(3) NOT NULL,
-			  `name` varchar(50) NOT NULL,
-			  `description` varchar(250) DEFAULT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+		        `id` int(11) NOT NULL AUTO_INCREMENT,
+		        `code` varchar(3) DEFAULT NULL,
+		        `name` varchar(50) DEFAULT NULL,
+		        `description` varchar(250) DEFAULT NULL,
+		        PRIMARY KEY (`id`)
+		      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="1553316058350-3">
-    	<sql>
-			CREATE TABLE `user` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `username` varchar(50) NOT NULL,
-			  `last_name` varchar(150) NOT NULL,
-			  `first_name` varchar(150) NOT NULL,
-			  `email` varchar(255) NOT NULL,
-			  `password` varchar(255) NOT NULL,
-			  `country` varchar(50) NOT NULL,
-			  `phone` varchar(255) DEFAULT NULL,
-			  `foreign` varchar(1) NOT NULL,
-			  `tax_correlative` varchar(100) DEFAULT NULL,
-			  `dni` varchar(100) DEFAULT NULL,
-			  `status_id` int(11) DEFAULT NULL,
-			  PRIMARY KEY (`id`),
-			  UNIQUE KEY `username_UNIQUE` (`username`),
-			  KEY `fk_user_status_idx` (`status_id`),
-			  CONSTRAINT `fk_user_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+      <sql>
+	      CREATE TABLE `user` (
+	        `id` int(11) NOT NULL AUTO_INCREMENT,
+	        `username` varchar(50) NOT NULL,
+	        `last_name` varchar(150) NOT NULL,
+	        `first_name` varchar(150) NOT NULL,
+	        `email` varchar(255) DEFAULT NULL,
+	        `password` varchar(255) NOT NULL,
+	        `country` varchar(100) DEFAULT NULL,
+	        `phone` varchar(255) DEFAULT NULL,
+	        `state` varchar(100) DEFAULT NULL,
+	        `tax_correlative` varchar(100) DEFAULT NULL,
+	        `dni` varchar(100) DEFAULT NULL,
+	        `status_id` int(11) DEFAULT NULL,
+	        PRIMARY KEY (`id`),
+	        UNIQUE KEY `username_UNIQUE` (`username`),
+	        KEY `fk_user_status_idx` (`status_id`),
+	        CONSTRAINT `fk_user_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`)
+	      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="1553316058350-4">
         <sql>
             CREATE TABLE `user_roles` (
-	            `user_id` int(11) NOT NULL,
-	            `roles_id` int(11) NOT NULL,
-	            KEY `user_roles_user_idx` (`user_id`),
-	            KEY `user_roles_roles_idx` (`roles_id`),
-	            CONSTRAINT `user_roles_roles_idx` FOREIGN KEY (`roles_id`) REFERENCES `role` (`id`),
-	            CONSTRAINT `user_roles_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+              `user_id` int(11) NOT NULL,
+              `roles_id` int(11) NOT NULL,
+              KEY `user_roles_user_idx` (`user_id`),
+              KEY `user_roles_roles_idx` (`roles_id`),
+              CONSTRAINT `user_roles_roles_idx` FOREIGN KEY (`roles_id`) REFERENCES `role` (`id`),
+              CONSTRAINT `user_roles_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="1553316058452-5">
         <sql>
             CREATE TABLE `course` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `code` varchar(5) NOT NULL,
-			  `name` varchar(50) NOT NULL,
-			  `description` varchar(250) DEFAULT NULL,
-			  `grade` int(11) DEFAULT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+		        `id` int(11) NOT NULL AUTO_INCREMENT,
+		        `code` varchar(5) DEFAULT NULL,
+		        `name` varchar(50) DEFAULT NULL,
+		        `description` varchar(250) DEFAULT NULL,
+		        `grade` int(11) DEFAULT NULL,
+		        PRIMARY KEY (`id`)
+		      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="15533160588392-6">
         <sql>
             CREATE TABLE `course_enrollment` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `user_id` int(11) NOT NULL,
-			  `course_id` int(11) NOT NULL,
-			  `students_amount` int(11) NOT NULL,
-			  `year` year(4) NOT NULL,
-			  `description` varchar(250) DEFAULT NULL,
-			  PRIMARY KEY (`id`),
-			  KEY `couse_enrollment_user_idx` (`user_id`),
-			  KEY `course_enrollment_course_idx` (`course_id`),
-			  CONSTRAINT `course_enrollment_course_idx` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
-			  CONSTRAINT `couse_enrollment_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+		        `id` int(11) NOT NULL AUTO_INCREMENT,
+		        `user_id` int(11) NOT NULL,
+		        `course_id` int(11) NOT NULL,
+		        `students_amount` int(11) DEFAULT NULL,
+		        `date` datetime DEFAULT NULL,
+		        `description` varchar(250) DEFAULT NULL,
+		        PRIMARY KEY (`id`),
+		        KEY `couse_enrollment_user_idx` (`user_id`),
+		        KEY `course_enrollment_course_idx` (`course_id`),
+		        CONSTRAINT `course_enrollment_course_idx` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
+		        CONSTRAINT `couse_enrollment_user_idx` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+		      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="15533160588323-7">
         <sql>
             CREATE TABLE `course_planning` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `course_enrollment_id` int(11) NOT NULL,
-			  `week` int(11) NOT NULL,
-			  `date` date NOT NULL,
-			  `assistance` varchar(50) NOT NULL,
-			  `content` varchar(250) DEFAULT NULL,
-			  `learning_activities` varchar(250) DEFAULT NULL,
-			  `evaluation_activities` varchar(250) DEFAULT NULL,
-			  PRIMARY KEY (`id`),
-			  KEY `couse_planning_course_enrollment_idx` (`course_enrollment_id`),
-			  CONSTRAINT `couse_enrollment_course_enrollment_idx` FOREIGN KEY (`course_enrollment_id`) REFERENCES `course_enrollment` (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+		        `id` int(11) NOT NULL AUTO_INCREMENT,
+		        `course_enrollment_id` int(11) NOT NULL,
+		        `week` int(11) DEFAULT NULL,
+		        `date` date DEFAULT NULL,
+		        `assistance` varchar(50) DEFAULT NULL,
+		        `content` varchar(250) DEFAULT NULL,
+		        `learning_activities` varchar(250) DEFAULT NULL,
+		        `evaluation_activities` varchar(250) DEFAULT NULL,
+		        PRIMARY KEY (`id`),
+		        KEY `couse_planning_course_enrollment_idx` (`course_enrollment_id`),
+		        CONSTRAINT `couse_enrollment_course_enrollment_idx` FOREIGN KEY (`course_enrollment_id`) REFERENCES `course_enrollment` (`id`)
+		      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="15533160588875-8">
         <sql>
             CREATE TABLE `income` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `date` datetime NOT NULL,
-			  `amount` decimal(19,2) NOT NULL,
-			  `amount_text` varchar(150) NOT NULL,
-			  `pay_method` varchar(150) NOT NULL,
-			  `description` varchar(255) NOT NULL,
-			  `user_id` int(11) DEFAULT NULL,
-			  `username` varchar(255) NOT NULL,
-			  PRIMARY KEY (`id`),
-			  KEY `fk_user_income_idx` (`user_id`),
-			  CONSTRAINT `fk_user_income` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+		        `id` int(11) NOT NULL AUTO_INCREMENT,
+		        `date` datetime DEFAULT NULL,
+		        `amount` decimal(19,2) DEFAULT NULL,
+		        `amount_text` varchar(150) DEFAULT NULL,
+		        `pay_method` varchar(150) DEFAULT NULL,
+		        `description` varchar(255) DEFAULT NULL,
+		        `user_id` int(11) NOT NULL,
+		        `username` varchar(255) NOT NULL,
+		        PRIMARY KEY (`id`),
+		        KEY `fk_user_income_idx` (`user_id`),
+		        CONSTRAINT `fk_user_income` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+		      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="15533160588542-9">
         <sql>
             CREATE TABLE `outcome_category` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `code` varchar(3) NOT NULL,
-			  `name` varchar(50) NOT NULL,
-			  `description` varchar(250) DEFAULT NULL,
-			  `type` varchar(45) DEFAULT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+		        `id` int(11) NOT NULL AUTO_INCREMENT,
+		        `code` varchar(3) DEFAULT NULL,
+		        `name` varchar(50) DEFAULT NULL,
+		        `description` varchar(250) DEFAULT NULL,
+		        `type` varchar(45) DEFAULT NULL,
+		        PRIMARY KEY (`id`)
+		      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="15533160588982-10">
         <sql>
             CREATE TABLE `outcome` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `date` datetime NOT NULL,
-			  `amount` decimal(19,2) NOT NULL,
-			  `amount_text` varchar(150) NOT NULL,
-			  `description` varchar(255) NOT NULL,
-			  `outcome_category_id` int(11) DEFAULT NULL,
-			  `user_id` int(11) DEFAULT NULL,
-			  PRIMARY KEY (`id`),
-			  KEY `fk_outcome_category_idx` (`outcome_category_id`),
-			  KEY `fk_user_outcome_idx` (`user_id`),
-			  CONSTRAINT `fk_outcome_category` FOREIGN KEY (`outcome_category_id`) REFERENCES `outcome_category` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
-			  CONSTRAINT `fk_user_outcome` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+		        `id` int(11) NOT NULL AUTO_INCREMENT,
+		        `date` datetime DEFAULT NULL,
+		        `amount` decimal(19,2) DEFAULT NULL,
+		        `amount_text` varchar(150) DEFAULT NULL,
+		        `description` varchar(255) DEFAULT NULL,
+		        `outcome_category_id` int(11) NOT NULL,
+		        `username` varchar(255) DEFAULT NULL,
+		        PRIMARY KEY (`id`),
+		        KEY `fk_outcome_category_idx` (`outcome_category_id`),
+		        CONSTRAINT `fk_outcome_category` FOREIGN KEY (`outcome_category_id`) REFERENCES `outcome_category` (`id`)
+		      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="1553316058350-55">
-    	<sql>
-			CREATE TABLE `oauth_access_token` (
-	            `token_id` varchar(255) DEFAULT NULL,
-	            `token` mediumblob,
-	            `authentication_id` varchar(255) NOT NULL,
-	            `user_name` varchar(255) DEFAULT NULL,
-	            `client_id` varchar(255) DEFAULT NULL,
-	            `authentication` mediumblob,
-	            `refresh_token` varchar(255) DEFAULT NULL,
-	            PRIMARY KEY (`authentication_id`)
+      <sql>
+      		CREATE TABLE `oauth_access_token` (
+              `token_id` varchar(255) DEFAULT NULL,
+              `token` mediumblob,
+              `authentication_id` varchar(255) NOT NULL,
+              `user_name` varchar(255) DEFAULT NULL,
+              `client_id` varchar(255) DEFAULT NULL,
+              `authentication` mediumblob,
+              `refresh_token` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`authentication_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             
             CREATE TABLE `oauth_approvals` (
-	            `userId` varchar(255) DEFAULT NULL,
-	            `clientId` varchar(255) DEFAULT NULL,
-	            `scope` varchar(255) DEFAULT NULL,
-	            `status` varchar(10) DEFAULT NULL,
-	            `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	            `lastModifiedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+              `userId` varchar(255) DEFAULT NULL,
+              `clientId` varchar(255) DEFAULT NULL,
+              `scope` varchar(255) DEFAULT NULL,
+              `status` varchar(10) DEFAULT NULL,
+              `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+              `lastModifiedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             
             CREATE TABLE `oauth_client_details` (
-	            `client_id` varchar(255) NOT NULL,
-	            `resource_ids` varchar(255) DEFAULT NULL,
-	            `client_secret` varchar(255) DEFAULT NULL,
-	            `scope` varchar(255) DEFAULT NULL,
-	            `authorized_grant_types` varchar(255) DEFAULT NULL,
-	            `web_server_redirect_uri` varchar(255) DEFAULT NULL,
-	            `authorities` varchar(255) DEFAULT NULL,
-	            `access_token_validity` int(11) DEFAULT NULL,
-	            `refresh_token_validity` int(11) DEFAULT NULL,
-	            `additional_information` varchar(4096) DEFAULT NULL,
-	            `autoapprove` varchar(255) DEFAULT NULL,
-	            PRIMARY KEY (`client_id`)
+              `client_id` varchar(255) NOT NULL,
+              `resource_ids` varchar(255) DEFAULT NULL,
+              `client_secret` varchar(255) DEFAULT NULL,
+              `scope` varchar(255) DEFAULT NULL,
+              `authorized_grant_types` varchar(255) DEFAULT NULL,
+              `web_server_redirect_uri` varchar(255) DEFAULT NULL,
+              `authorities` varchar(255) DEFAULT NULL,
+              `access_token_validity` int(11) DEFAULT NULL,
+              `refresh_token_validity` int(11) DEFAULT NULL,
+              `additional_information` varchar(4096) DEFAULT NULL,
+              `autoapprove` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`client_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             
             CREATE TABLE `oauth_client_token` (
-	            `token_id` varchar(255) DEFAULT NULL,
-	            `token` mediumblob,
-	            `authentication_id` varchar(255) NOT NULL,
-	            `user_name` varchar(255) DEFAULT NULL,
-	            `client_id` varchar(255) DEFAULT NULL,
-	            PRIMARY KEY (`authentication_id`)
+              `token_id` varchar(255) DEFAULT NULL,
+              `token` mediumblob,
+              `authentication_id` varchar(255) NOT NULL,
+              `user_name` varchar(255) DEFAULT NULL,
+              `client_id` varchar(255) DEFAULT NULL,
+              PRIMARY KEY (`authentication_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             
             CREATE TABLE `oauth_code` (
-	            `code` varchar(255) DEFAULT NULL,
-	            `authentication` mediumblob
+              `code` varchar(255) DEFAULT NULL,
+              `authentication` mediumblob
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             
             CREATE TABLE `oauth_refresh_token` (
-	            `token_id` varchar(255) DEFAULT NULL,
-	            `token` mediumblob,
-	            `authentication` mediumblob
+              `token_id` varchar(255) DEFAULT NULL,
+              `token` mediumblob,
+              `authentication` mediumblob
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
