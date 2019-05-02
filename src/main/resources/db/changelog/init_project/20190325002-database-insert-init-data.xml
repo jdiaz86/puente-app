@@ -20,10 +20,10 @@
     <changeSet author="jdiaz" id="15533160539228-2">
         <sql>
            INSERT INTO `user` VALUES
-			(1, 'admin', 'admin_last_name', 'admin_first_name', 'admin@admin.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'GUA','555383839', 'N', '604849302', '3829448440201', 1),
-			(2, 'jdiaz', 'Diaz', 'Jorge', 'jdiaz@gmail.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'URU','555383839', 'S', '604849302', '2347823724', 1),
-			(3, 'edwinxol', 'Xol', 'Edwin', 'edwinxol@gmail.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'GUA','555386757', 'N', '6045439302', '382944786201', 1),
-			(4, 'cazurdia', 'Azurdia', 'Carlos', 'caazurdiam@gmail.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'GUA','555734839', 'N', '604654302', '3829232440201', 1);
+			(1, 'admin', 'admin_last_name', 'admin_first_name', 'admin@admin.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'Guatemala','555383839', 'Alta Verapaz', '604849302', '3829448440201', 1),
+			(2, 'jdiaz', 'Diaz', 'Jorge', 'jdiaz@gmail.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'Uruguay','555383839', 'Montevideo', '604849302', '2347823724', 1),
+			(3, 'edwinxol', 'Xol', 'Edwin', 'edwinxol@gmail.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'Guatemala','555386757', 'Zacapa', '6045439302', '382944786201', 1),
+			(4, 'cazurdia', 'Azurdia', 'Carlos', 'caazurdiam@gmail.com', '$2a$10$8QGoidIACyJXegof2jcrdOPAvT9k9K80l1xtqI0op4H0RwNQN9ygm', 'Guatemala','555734839', 'Guatemala', '604654302', '3829232440201', 1);
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="15533160539228-3">
@@ -48,9 +48,9 @@
     </changeSet>
     <changeSet author="jdiaz" id="15533160539345-6">
         <sql>
-           INSERT INTO `course_enrollment` VALUES (1,1,1,10,2019,'Asignacion 2019 profesor Admin, curso Matematicas grado 1'),
-           											(2,1,2,15,2019,'Asignacion 2019 profesor Admin, curso Ciencias Naturales grado 1'),
-           											(3,1,3,8,2019,'Asignacion 2019 profesor Admin, curso Lenguaje grado 1');
+           INSERT INTO `course_enrollment` VALUES (1,1,1,10,'2019-01-20 00:00:00','Asignacion 2019 profesor Admin, curso Matematicas grado 1'),
+           											(2,1,2,15,'2019-01-20 00:00:00','Asignacion 2019 profesor Admin, curso Ciencias Naturales grado 1'),
+           											(3,1,3,8,'2019-01-20 00:00:00','Asignacion 2019 profesor Admin, curso Lenguaje grado 1');
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="15533160539938-7">
@@ -81,10 +81,10 @@
     </changeSet>
     <changeSet author="jdiaz" id="15533160539991-10">
         <sql>
-           INSERT INTO `outcome` VALUES (1,'2019-01-15 00:00:00',5000.00,'Cinco mil exactos','pago de equipo para ciencias',1,1),
-           								(2,'2019-01-30 00:00:00',1000.00,'Un mil exactos','pago de equipo de artes',2,1),
-           								(3,'2019-02-10 00:00:00',2500.00,'Dos mil quinientos exactos','pago de sueldos',3,1),
-           								(4,'2019-01-10 00:00:00',2500.00,'Dos mil quinientos exactos','pago de sueldos',3,1);
+           INSERT INTO `outcome` VALUES (1,'2019-01-15 00:00:00',5000.00,'Cinco mil exactos','pago de equipo para ciencias',1,'admin'),
+           								(2,'2019-01-30 00:00:00',1000.00,'Un mil exactos','pago de equipo de artes',2,'admin'),
+           								(3,'2019-02-10 00:00:00',2500.00,'Dos mil quinientos exactos','pago de sueldos',3,'admin'),
+           								(4,'2019-01-10 00:00:00',2500.00,'Dos mil quinientos exactos','pago de sueldos',3,'admin');
         </sql>
     </changeSet>
 </databaseChangeLog>
