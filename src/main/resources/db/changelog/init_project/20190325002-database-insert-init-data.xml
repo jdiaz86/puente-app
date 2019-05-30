@@ -4,8 +4,8 @@
         <sql>
             INSERT INTO `role`
 					VALUES (1, 'ADM', 'Administrador', 'Rol de Administrador'),
-					(2, 'DCT', 'Docente', 'Rol de Docente'),
-					(3, 'DNT', 'Donante', 'Rol de Donante');
+					(2, 'DOC', 'Docente', 'Rol de Docente'),
+					(3, 'DON', 'Donante', 'Rol de Donante');
         </sql>
     </changeSet>
     <changeSet author="jdiaz" id="15533020438392-1">
@@ -85,6 +85,22 @@
            								(2,'2019-01-30 00:00:00',1000.00,'Un mil exactos','pago de equipo de artes',2,'admin'),
            								(3,'2019-02-10 00:00:00',2500.00,'Dos mil quinientos exactos','pago de sueldos',3,'admin'),
            								(4,'2019-01-10 00:00:00',2500.00,'Dos mil quinientos exactos','pago de sueldos',3,'admin');
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="15533160539991-10">
+        <sql>
+           INSERT INTO `outcome` VALUES (1,'2019-01-15 00:00:00',5000.00,'Cinco mil exactos','pago de equipo para ciencias',1,'admin'),
+           								(2,'2019-01-30 00:00:00',1000.00,'Un mil exactos','pago de equipo de artes',2,'admin'),
+           								(3,'2019-02-10 00:00:00',2500.00,'Dos mil quinientos exactos','pago de sueldos',3,'admin'),
+           								(4,'2019-01-10 00:00:00',2500.00,'Dos mil quinientos exactos','pago de sueldos',3,'admin');
+        </sql>
+    </changeSet>
+    <changeSet author="jdiaz" id="155331605394584-11">
+        <sql>
+           INSERT INTO `timeline` VALUES (1,'2014-12-01 00:00:00','Nace la idea','Un día estando en la misión de Guatemala para Naciones Unidas cuando fue parte del Consejo de Seguridad, Edwin Xol quien en esa época formaba parte de la misión guatemalteca, tuvo la idea de proveer educación de calidad para niños y niñas de su comunidad natal en Guatemala, allí surgió la idea de crear un puente que conecte con todas las necesidades de su comunidad y poder llevar la educación a su aldea, para que los niños y niñas puedan acceder a una mejor vida.','stars'),
+           								(2,'2015-01-25 00:00:00','Inicia el proyecto','El Instituto Nacional de Educación Básica Puente de Aldea Punta Brava (conocido como “Instituto Puente”) abrió sus puertas en enero de 2015 para atender a comunidades de la ribera Este del lago de Izabal. Durante el presente ciclo escolar atiende a estudiantes de seis comunidades: Río Banco, Puntas Hondas, Punta Brava, Finca Tecomates, Pueblo Nuevo y Boca Ancha. El establecimiento funciona bajo la modalidad de Instituto Nacional de Educación Básica (INEB), del Ministerio de Educación. Pertenece al distrito 18-05-25, del municipio de Los Amates, Izabal.','house'),
+           								(3,'2015-09-01 00:00:00','Vida jurídica','El Instituto Puente es formalmente constituido y nace a la vida jurídica, es una asociación sin fines de lucro educativa que provee educación a niños, niñas y jóvenes del área de aldea Punta Brava, municipaio de Morales, departamento de Izabal, en Guatemala. ','create'),
+           								(4,'2016-04-01 00:00:00','Primer año','El Instituto Puente logra brindar educación a sus alumnos durante el primer año de funcionamiento, atendiendo a 50 niños en el área de educación básica y 50 en el área de eduacación secundaria, con niños, niñas y jóvenes provenientes de más de 5 aldeas cercanas a Punta Brava. ','looks_one');
         </sql>
     </changeSet>
 </databaseChangeLog>

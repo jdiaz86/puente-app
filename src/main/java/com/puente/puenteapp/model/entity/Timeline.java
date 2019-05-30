@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -18,9 +17,9 @@ import com.puente.puenteapp.configuration.JsonDateSerializer;
 import lombok.Data;
 
 @Entity
-@Table(name = "CourseEnrollment")
+@Table(name = "timeline")
 @Data
-public class CourseEnrollment implements Serializable {
+public class Timeline implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,15 +29,11 @@ public class CourseEnrollment implements Serializable {
     @JsonDeserialize(using=JsonDateDeserializer.class)
 	private Date date;
 	
-	private Integer studentsAmount;
+	private String title;
 	
 	private String description;
 	
-	@ManyToOne
-    private User user;
-	
-	@ManyToOne
-    private Course course;
+	private String icon;
 	
 	
 }
