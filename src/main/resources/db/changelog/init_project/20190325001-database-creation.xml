@@ -227,4 +227,16 @@
 		      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
         </sql>
     </changeSet>
+    <changeSet author="jdiaz" id="15533160588392-11">
+        <sql>
+            CREATE TABLE `timeline` (
+		        `id` int(11) NOT NULL AUTO_INCREMENT,
+		        `date` datetime DEFAULT NULL,
+		        `title` varchar(100) DEFAULT NULL,
+		        `description` varchar(3060) DEFAULT NULL,
+		        `icon` varchar(50) DEFAULT NULL,
+		        PRIMARY KEY (`id`)
+		      ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
