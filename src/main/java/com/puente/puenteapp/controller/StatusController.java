@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.puente.puenteapp.controller.util.PuenteException;
+import com.puente.puenteapp.util.PuenteException;
 import com.puente.puenteapp.model.entity.Status;
 import com.puente.puenteapp.model.repository.StatusRepository;
 

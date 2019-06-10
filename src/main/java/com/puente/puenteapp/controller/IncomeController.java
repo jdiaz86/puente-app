@@ -1,21 +1,18 @@
 package com.puente.puenteapp.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
+import com.puente.puenteapp.util.PuenteException;
+import com.puente.puenteapp.model.entity.Income;
+import com.puente.puenteapp.model.repository.IncomeRepository;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.puente.puenteapp.controller.util.PuenteException;
-import com.puente.puenteapp.model.entity.Income;
-import com.puente.puenteapp.model.repository.IncomeRepository;
 
 @RestController
 @RequestMapping("/api/incomes")

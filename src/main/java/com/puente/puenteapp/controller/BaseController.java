@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.puente.puenteapp.controller.util.PuenteException;
+import com.puente.puenteapp.util.PuenteException;
 
 public class BaseController {
 	

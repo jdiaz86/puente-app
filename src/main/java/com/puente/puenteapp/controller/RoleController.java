@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.puente.puenteapp.controller.util.PuenteException;
+import com.puente.puenteapp.util.PuenteException;
 import com.puente.puenteapp.model.entity.Role;
 import com.puente.puenteapp.model.repository.RoleRepository;
 
