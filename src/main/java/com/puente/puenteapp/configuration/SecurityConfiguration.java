@@ -1,7 +1,7 @@
 package com.puente.puenteapp.configuration;
 
+import com.puente.puenteapp.model.service.UserSecurityService;
 import java.util.Collections;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -18,21 +18,19 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import com.puente.puenteapp.model.service.UserSecurityService;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
-	private static final String[] PUBLIC_MATCHERS = {"/**/favicon.ico", "/webjars/**", 
-													"/images/**", "/js/**", 
-													"/css/**", "/login", "/oauth/token", "/api/users/decode/**"};
-
-
+    
+    private static final String[] PUBLIC_MATCHERS = {"/**/favicon.ico", "/webjars/**",
+        "/images/**", "/js/**",
+        "/css/**", "/login", "/oauth/token", "/api/users/decode/**"};
+    
+    
     @Autowired
     private UserSecurityService userSecurityService;
- 
-
+    
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().disable()
@@ -48,32 +46,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     
     @Bean
-   	@Override
-   	public AuthenticationManager authenticationManagerBean() throws Exception {
-   		return super.authenticationManagerBean();
-   	}
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
     
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
     
-	@Bean
+    @Bean
     public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); 
-		CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true); 
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
         // *** URL below needs to match the Vue client URL and port ***
-        config.setAllowedOrigins(Collections.singletonList("*")); 
-        config.setAllowedMethods(Collections.singletonList("*"));  
-        config.setAllowedHeaders(Collections.singletonList("*"));  
-        source.registerCorsConfiguration("/**", config);  
+        config.setAllowedOrigins(Collections.singletonList("*"));
+        config.setAllowedMethods(Collections.singletonList("*"));
+        config.setAllowedHeaders(Collections.singletonList("*"));
+        source.registerCorsConfiguration("/**", config);
         
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);  
-        return bean;  
-    }  
-
-   
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return bean;
+    }
     
 }
