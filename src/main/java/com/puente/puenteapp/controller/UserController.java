@@ -1,10 +1,11 @@
 package com.puente.puenteapp.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
+import com.puente.puenteapp.model.entity.Status;
+import com.puente.puenteapp.model.entity.User;
+import com.puente.puenteapp.model.repository.UserRepository;
+import com.puente.puenteapp.util.PuenteException;
 import java.security.Principal;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,47 +15,42 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.puente.puenteapp.util.PuenteException;
-import com.puente.puenteapp.model.entity.Outcome;
-import com.puente.puenteapp.model.entity.Status;
-import com.puente.puenteapp.model.entity.User;
-import com.puente.puenteapp.model.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController extends BaseController {
-	
-	@Autowired
+    
+    @Autowired
     private UserRepository repository;
-	
-	@GetMapping("/")
+    
+    @GetMapping("/")
     public List<User> getAll() {
         return repository.findAll();
     }
-	
-	@GetMapping("/decode/{decoded}")
+    
+    @GetMapping("/decode/{decoded}")
     public String get(@PathVariable(value = "decoded") String decoded) throws PuenteException {
-		return new BCryptPasswordEncoder().encode(decoded);
+        return new BCryptPasswordEncoder().encode(decoded);
     }
-	
-	@GetMapping("/{id}")
+    
+    @GetMapping("/{id}")
     public User get(@PathVariable(value = "id") Integer id) throws PuenteException {
         return getById(repository, id);
     }
-	
-	@RequestMapping(method = PUT, value = "/{id}")
+    
+    @RequestMapping(method = PUT, value = "/{id}")
     public ResponseEntity<User> update(@PathVariable(value = "id") Integer id, @RequestBody User dto) throws PuenteException {
-		User user = getById(repository, id);
+        User user = getById(repository, id);
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
         copy(dto, user);
         return ResponseEntity.ok(repository.save(user));
     }
-	
-	@PutMapping(value = "/validateUser/{id}")
+    
+    @PutMapping(value = "/validateUser/{id}")
     public ResponseEntity<String> updateAddress(@PathVariable("id") final Integer id) throws PuenteException {
         User user = getById(repository, id);
         user.setStatus(Status.ACTIVE);
@@ -62,13 +58,13 @@ public class UserController extends BaseController {
         repository.save(user);
         return ResponseEntity.ok(Status.ACTIVE.getName());
     }
-	
-	@GetMapping("/me")
+    
+    @GetMapping("/me")
     public User getUserObj(Principal principal) throws PuenteException {
         Integer userId = ((User) ((OAuth2Authentication) principal).getPrincipal()).getId();
-
+        
         return getById(repository, userId);
     }
-
-
+    
+    
 }

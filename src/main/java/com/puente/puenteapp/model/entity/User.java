@@ -30,68 +30,68 @@ import lombok.Data;
 @Table(name = "user")
 @Data
 public class User implements UserDetails, Serializable {
-
-	private static final long serialVersionUID = 1L;
-
-	@Id
+    
+    private static final long serialVersionUID = 1L;
+    
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-	
-	private String username;
-	
-	private String lastName;
-	
-	private String firstName;
-	
-	private String email;
-	
-	private String password;
-	
-	private String country;
-	
-	private String phone;
-	
-	private String state;
-	
-	private String taxCorrelative;
-	
-	private String dni;
-	
-	@LazyCollection(LazyCollectionOption.FALSE)
+    
+    private String username;
+    
+    private String lastName;
+    
+    private String firstName;
+    
+    private String email;
+    
+    private String password;
+    
+    private String country;
+    
+    private String phone;
+    
+    private String state;
+    
+    private String taxCorrelative;
+    
+    private String dni;
+    
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     private List<Role> roles;
-	
-	@ManyToOne
+    
+    @ManyToOne
     private Status status;
-
-	@JsonDeserialize(using = CustomAuthorityDeserializer.class)
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if (!CollectionUtils.isEmpty(getRoles())) {
+    
+    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (!CollectionUtils.isEmpty(getRoles())) {
             return getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName())).collect(Collectors.toList());
         } else {
             return Collections.emptyList();
         }
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
+    }
+    
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+    
 }
